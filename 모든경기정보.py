@@ -6,6 +6,7 @@ import pandas as pd
 
 # 드라이버 가져오기
 driver = webdriver.Chrome('C://Users//gkfka//Downloads//chromedriver_win32//chromedriver.exe')
+
 # 사이트 열기
 url=driver.get('https://www.koreabaseball.com/Schedule/Schedule.aspx')
 
@@ -39,21 +40,26 @@ for year in list_year:
         soup = BeautifulSoup(html, 'html.parser')
         tblSchedule = soup.find('table', {'class': 'tbl'})
         trs = tblSchedule.find_all('tr')
+        
+        # 표 읽어오기
         for idx, tr in enumerate(trs):
             if idx > 0:
                 tds = tr.find_all('td')
+
                 if len(tds)==8:
                     tds.insert(0,searchList[-1][0])
-                    temp = [year,tds[0], tds[1].text.strip(), tds[2].text.strip(), tds[3].text.strip(), tds[7].text.strip(), tds[8].text.strip()]
+                    temp = [year,tds[0], tds[1].text.strip(), tds[2].text.strip(),  tds[7].text.strip()]
                 else:
-                    temp = [year,tds[0].text.strip(), tds[1].text.strip(), tds[2].text.strip(), tds[3].text.strip(), tds[7].text.strip(),tds[8].text.strip()]
+                    temp = [year,tds[0].text.strip(), tds[1].text.strip(), tds[2].text.strip(), tds[7].text.strip()]
+
                 if tds[8].text.strip()=='-':
                     searchList.append(temp)
+
     # csv 만들기
     data = pd.DataFrame(searchList)
-    data.columns = ['year','day', 'time', 'play', 'relay', 'park', 'bigo']
+    data.columns = ['year','day', 'time', 'play', 'park']
     data.head()
-    data.to_csv(year + '모든경기정보.csv', encoding='cp949')
+    data.to_csv(year + '모든경기정보.csv', encoding='UTF-8')
 
 
 
