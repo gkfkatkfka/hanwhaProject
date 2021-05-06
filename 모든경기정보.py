@@ -30,6 +30,8 @@ for year in list_year:
     # 연도 바꾸기
     driver.find_element_by_xpath("//select[@id='ddlYear']/option[text()='" + str(year) + "']").click()
 
+    searchList=[]
+
     # 달 반복
     for month in list_month:
         # 달 선택
