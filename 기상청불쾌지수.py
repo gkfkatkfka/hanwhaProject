@@ -18,7 +18,7 @@ driver.find_element_by_xpath("//select[@id='idxCode']/option[text()='불쾌지�
 driver.find_element_by_xpath("//select[@id='startHh']/option[@value='00']").click()
 
 
-year_list=['2019']
+year_list=['2018','2019','2020']
 
 for year in year_list: 
     #파일 선택
