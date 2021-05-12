@@ -20,13 +20,13 @@ for year in list_year:
     url = driver.get('http://www.kbreport.com/leader/main?rows=20&order=oWAR&orderType=DESC&teamId=8&defense_no=&year_from='+year+'&year_to='+year+'&gameType=R&split01=month&split02_1=6&split02_2=9&r_tpa_count=&tpa_count=0#/1')
 
     # 사이트 로딩 시간 고려
-    time.sleep(3)
+    time.sleep(7)
 
     # 리스트 값 선택
-    driver.find_element_by_xpath("//select[@class='page-row-num']/option[@value='100']").click()
+    driver.find_element_by_xpath("//select[@class='page-row-num']/option[@value='50']").click()
 
     # 사이트 로딩 시간 고려
-    time.sleep(5)
+    time.sleep(10)
 
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
