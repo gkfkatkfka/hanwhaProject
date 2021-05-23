@@ -19,18 +19,18 @@ for year in year_list:
 
     # 정보 한 줄씩 불러오기
     for info in information:
-        date=info[2]
+        date=info[1]
         dateIndex=int(info[3])
 
         # 0 : 낮음, 1: 보통, 2: 높음, 3: 매우높음
         if dateIndex>=80:
-            temp=[date,dateIndex,3]
+            temp=[date,dateIndex,4]
         elif dateIndex >=75:
-            temp = [date, dateIndex, 2]
+            temp = [date, dateIndex, 3]
         elif dateIndex >= 68:
-            temp = [date, dateIndex, 1]
+            temp = [date, dateIndex, 2]
         else:
-            temp = [date, dateIndex, 0]
+            temp = [date, dateIndex, 1]
 
         searchList.append(temp)
 

@@ -12,8 +12,7 @@ list_year = ['2018', '2019', '2020']
 
 for year in list_year:
 
-    # 선수들 이름 담을 리스트
-    searchList = []
+
 
     # 선수 이름 파일 선택
     f = open('./dataSet/' + year + '한화선수명단.csv', 'r', encoding='UTF-8')
@@ -27,11 +26,15 @@ for year in list_year:
     for info in information:
         name = info[1]
 
+        # 선수들 이름 담을 리스트
+        searchList = []
+
         if len(info)==3:
             # 사이트 열기
             url = driver.get('http://www.statiz.co.kr/player.php?opt=3&sopt=0&name='+name+'&re=0&se=&da=&year='+year+'&cv=')
         else:
             url = driver.get('http://www.statiz.co.kr/player.php?opt=3&sopt=0&name=' + name + '&re=0&birth='+info[3]+'&se=&da=&year=' + year + '&cv=')
+
 
         html = driver.page_source
         soup = BeautifulSoup(html, 'html.parser')
@@ -39,19 +42,21 @@ for year in list_year:
         tbody = tblSchedule.find('tbody')
         trs = tbody.find_all('tr')
 
+
         for idx, tr in enumerate(trs):
             if idx>0:
                 tds = tr.find_all('td')
                 if len(tds) == 31:
-                    temp = [year,tds[0].text.strip(), tds[7].text.strip(), tds[8].text.strip(), tds[9].text.strip(),
+                    if int(tds[0].text.strip()[0:2])>=6 and int(tds[0].text.strip()[0:2])<=9:
+                        temp = [year,tds[0].text.strip(), tds[7].text.strip(), tds[8].text.strip(), tds[9].text.strip(),
                             tds[10].text.strip(), tds[11].text.strip(), tds[12].text.strip(), tds[13].text.strip(),
                             tds[14].text.strip(), tds[15].text.strip(), tds[16].text.strip(), tds[17].text.strip(),
-                            tds[18].text.strip(),  tds[19].text.strip(), tds[20].text.strip(), tds[21].text.strip(),
+                            tds[18].text.strip(), tds[19].text.strip(), tds[20].text.strip(), tds[21].text.strip(),
                             tds[22].text.strip(), tds[23].text.strip(), tds[24].text.strip() , tds[25].text.strip(),
                             tds[26].text.strip(), tds[27].text.strip(), tds[28].text.strip(),
                             tds[29].text.strip(), tds[30].text.strip()]
-                    print(temp)
-                    searchList.append(temp)
+                        print(temp)
+                        searchList.append(temp)
 
         # csv 만들기
         data = pd.DataFrame(searchList)
