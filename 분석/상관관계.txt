@@ -1,0 +1,20 @@
+https://jaehyeongan.github.io/2019/08/13/Basic-Visualization-Analytics/
+https://velog.io/@pyose95/Data-Analysis-14.-%EC%83%81%EA%B4%80%EB%B6%84%EC%84%9D-Correlation-Analysis
+https://gomguard.tistory.com/173
+
+https://hooni-playground.com/943/
+https://domini21.tistory.com/30
+
+상관관계란?
+- 두 변수간에 어떤 선형적 관계를갖고 있는지 분석하는방법
+- 두 변수간의 연관된 정보
+- 상관관계가 인과관계를 나타내는 것은 아님
+
+상관관계 보는법
+- 범위는 -1 ~ +1
+- 절대값이 클수록 변수 사이에 강한 관계
+- 0에 가까울 수록 선형 관계가 없음을 나타냄
+
+상관관계 식
+r = x 와 y 가 함께 변하는 정도 / x 와 y 가 각각 변하는 정도
+
