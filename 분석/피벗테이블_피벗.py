@@ -19,7 +19,6 @@ for year in year_list:
     df = pd.read_csv('..\\dataSet\\'+year+'불쾌지수_승패.csv', encoding='UTF-8')
 
     '''년도별 승패 비율 피에 차트'''
-    # 파일 불러오기
     df["승패여부"].value_counts().plot.pie(explode=[0, 0.1], autopct='%1.1f%%', shadow=True)
     plt.title(year + '년 승패')
     plt.show()
