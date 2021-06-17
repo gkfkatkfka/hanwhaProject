@@ -61,7 +61,9 @@ for year in years:
     plt.pie(year_record,labels=['중간', '높음', '매우높음'],autopct='%.f%%',colors=color,startangle=90)
     plt.legend(loc=3)
     plt.title(year+' 불쾌지수 별 승리')
+    plt.savefig('C:/Users/gkfka/Documents/college/3_1/4_스타트업/최종결과./1_' + year + '불쾌지수 별 승리.png')
     plt.show()
+
 
 
 total_record.append(tFirst)
@@ -75,4 +77,5 @@ plt.axis('equal')
 plt.pie(total_record,labels=['중간', '높음', '매우 높음'],autopct='%.f%%',colors=color,startangle=90)
 plt.legend(loc=3)
 plt.title('2018년 - 2020년 불쾌지수 별 승리')
+plt.savefig('C:/Users/gkfka/Documents/college/3_1/4_스타트업/최종결과./1_2018-2020년 불쾌지수 별 승리.png')
 plt.show()

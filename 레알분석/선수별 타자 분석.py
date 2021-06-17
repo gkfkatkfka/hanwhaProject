@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 x=[1,2,3,4]
-y=[1,2,3,4]
+y=[0,0.5,1,1.5]
 
 
 years=['2018','2019','2020']
@@ -27,107 +27,60 @@ for year in years:
 
 
         # 불쾌지수별 정보를 담을 배열
-        # 안타(1루타),2타(2루타),3타(3루타), 홈런 순으로 들어감
-        arrFirst=[]
-        arrSecond=[]
-        arrThird=[]
-        arrFourth=[]
+        # 첫번째는 불쾌1, 두번재는 불쾌2, 세번째는 부로캐3
+        arrFirst=[] # 안타
+        arrSecond=[] # 2루타
+        arrThird=[]# 3루타
+        arrFourth=[] #홈런
 
         # 선수 명단 가지고 오기
-        df = pd.read_csv('../dataSet/' + year + '선수정보_불쾌지수_단계변경/' + name + '.csv', encoding='UTF-8')
+        df = pd.read_csv('../dataSet/' + year + '선수정보_단계변경/' + name + '.csv', encoding='UTF-8')
         countFirst = len(df[df['단계'] == 1])
         countSecond = len(df[df['단계'] == 2])
         countThird = len(df[df['단계'] == 3])
-        countFourth = len(df[df['단계'] == 4])
 
-        sumFirst=0
-        sumSecond=0
-        sumThird=0
-        sumFourth=0
+        arrFirst.append(df[df['단계'] == 1]['안타'].sum()/countFirst)
+        arrFirst.append(df[df['단계'] == 2]['안타'].sum() / countSecond)
+        arrFirst.append(df[df['단계'] == 3]['안타'].sum() / countThird)
 
-        if countFirst==0:
-            arrFirst.append(0)
-            arrFirst.append(0)
-            arrFirst.append(0)
-            arrFirst.append(0)
-        else:
-            arrFirst.append(df[df['단계']==1]['안타'].sum()/countFirst)
-            arrFirst.append(df[df['단계'] == 1]['2타'].sum() / countFirst)
-            arrFirst.append(df[df['단계'] == 1]['3타'].sum() / countFirst)
-            arrFirst.append(df[df['단계'] == 1]['홈런'].sum() / countFirst)
-
-        arrSecond.append(df[df['단계'] == 2]['안타'].sum() / countSecond)
+        arrSecond.append(df[df['단계'] == 1]['2타'].sum() / countFirst)
         arrSecond.append(df[df['단계'] == 2]['2타'].sum() / countSecond)
-        arrSecond.append(df[df['단계'] == 2]['3타'].sum() / countSecond)
-        arrSecond.append(df[df['단계'] == 2]['홈런'].sum() / countSecond)
+        arrSecond.append(df[df['단계'] == 3]['2타'].sum() / countThird)
 
-        arrThird.append(df[df['단계'] == 3]['안타'].sum() / countThird)
-        arrThird.append(df[df['단계'] == 3]['2타'].sum() / countThird)
+        arrThird.append(df[df['단계'] == 1]['3타'].sum() / countFirst)
+        arrThird.append(df[df['단계'] == 2]['3타'].sum() / countSecond)
         arrThird.append(df[df['단계'] == 3]['3타'].sum() / countThird)
-        arrThird.append(df[df['단계'] == 3]['홈런'].sum() / countThird)
 
-        arrFourth.append(df[df['단계'] == 4]['안타'].sum() / countFourth)
-        arrFourth.append(df[df['단계'] == 4]['2타'].sum() / countFourth)
-        arrFourth.append(df[df['단계'] == 4]['3타'].sum() / countFourth)
-        arrFourth.append(df[df['단계'] == 4]['홈런'].sum() / countFourth)
+        arrFourth.append(df[df['단계'] == 1]['홈런'].sum() / countFirst)
+        arrFourth.append(df[df['단계'] == 2]['홈런'].sum() / countSecond)
+        arrFourth.append(df[df['단계'] == 3]['홈런'].sum() / countThird)
 
-        '''
-        print(name,year)
-        print(arrFirst)
-        print(arrSecond)
-        print(arrThird)
-        print(arrFourth)
-        '''
+        color = ['lightcoral', 'orange', 'yellowgreen', 'skyblue']
 
-        topics = ['one', 'two', 'three', 'four']
-        As = [0, 0, 0, 0] #arrFirst
-        Bs = [0.4642857142857143, 0.0, 0.0, 0.0] #arrSecond
-        Cs = [0.4, 0.0, 0.0, 0.03333333333333333] #arrThird
-        Ds = [0.42857142857142855, 0.14285714285714285, 0.0, 0.0] #arrFourth
-
-        c_bottom = np.add(As, Bs)
-        d_bottom = np.add(c_bottom, Cs)
-
-        x = range(len(topics))
-        plt.bar(x, As)
-        plt.bar(x, Bs, bottom=As)
-        plt.bar(x, Cs, bottom=c_bottom)
-        plt.bar(x, Ds, bottom=d_bottom)
-
-        ax = plt.subplot()
-        ax.set_xticks(x)
-        ax.set_xticklabels(topics)
-        plt.title('TITLE')
-        plt.xlabel('X LABEL')
-        plt.ylabel('Y LABEL')
-        plt.show()
-
-        '''
-        legends=['1루타','2루타','3루타','홈런']
-        topics = ['낮음', '중간', '높음', '매우 높음']
+        plt.rc('font', family='Malgun Gothic')
+        legends=['안타','2루타','3루타','홈런']
+        topics = ['중간', '높음', '매우 높음']
 
         c_bottom = np.add(arrFirst, arrSecond)
         d_bottom = np.add(c_bottom, arrThird)
+        f_bottom = np.add(d_bottom, arrFourth)
         x = range(len(topics))
-
-        plt.rc('font', family='Malgun Gothic')
-
-        plt.bar(x, arrFirst)
-        plt.bar(x, arrSecond, bottom=arrFirst)
-        plt.bar(x, arrThird, bottom=c_bottom)
-        plt.bar(x, arrFourth, bottom=d_bottom)
+        plt.bar(x, arrFirst, width=0.4)
+        plt.bar(x, arrSecond, bottom=arrFirst, width=0.4)
+        plt.bar(x, arrThird, bottom=c_bottom, width=0.4)
+        plt.bar(x, arrFourth, bottom=d_bottom, width=0.4)
 
         ax = plt.subplot()
         ax.set_xticks(x)
+        ax.set_yticks(y)
         ax.set_xticklabels(topics)
-
-
-        plt.title(year+'년 '+name+'의 안타 지수')
+        plt.title(year+'년 '+name+' 선수의 안타')
         plt.xlabel('불쾌지수 단계')
         plt.ylabel('개(평균)')
-        plt.legend(legends)
+        plt.legend(legends,loc=1)
+        plt.savefig('C:/Users/gkfka/Documents/college/3_1/4_스타트업/최종결과./3_' + year + '년 '+name+'의 안타.png')
         plt.show()
-        '''
+
 
 
 

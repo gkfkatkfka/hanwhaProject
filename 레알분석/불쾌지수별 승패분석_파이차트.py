@@ -90,4 +90,38 @@ for year in years:
     ax3.pie(year_third, labels=['승리', '패배'], autopct='%.f%%', colors=color, startangle=90,shadow=True)
     ax3.set_title('매우 높음')
 
+    plt.legend(loc=4)
+    plt.savefig('C:/Users/gkfka/Documents/college/3_1/4_스타트업/최종결과./2_' + year + '년도별 불쾌지수 승률.png')
     plt.show()
+
+
+
+total_first.append(tFirstWin)
+total_first.append(tFirstWin)
+total_second.append(tSecondWin)
+total_second.append(tSecondLose)
+total_third.append(tThirdWin)
+total_third.append(tThirdLose)
+
+plt.rc('font', family='Malgun Gothic')
+
+fig = plt.figure()
+fig.set_size_inches(15, 5)
+ax1 = fig.add_subplot(1, 3, 1)
+ax2 = fig.add_subplot(1, 3, 2)
+ax3 = fig.add_subplot(1, 3, 3)
+
+color = ['lightcoral', 'powderblue']
+
+ax1.pie(total_first, labels=['승리', '패배'], autopct='%.f%%', colors=color, startangle=90, shadow=True)
+ax1.set_title('보통')
+
+ax2.pie(total_second, labels=['승리', '패배'], autopct='%.f%%', colors=color, startangle=90, shadow=True)
+ax2.set_title('높음')
+
+ax3.pie(total_third, labels=['승리', '패배'], autopct='%.f%%', colors=color, startangle=90, shadow=True)
+ax3.set_title('매우 높음')
+
+plt.legend(loc=4)
+plt.savefig('C:/Users/gkfka/Documents/college/3_1/4_스타트업/최종결과./2_2018 - 2020년 불쾌지수 승률.png')
+plt.show()
